@@ -12,4 +12,6 @@ activate on windows via ```venv\Scripts\activate```
 ```pip install -r requirements.txt```
 
 4. Run the examplary app
-```python src/app.py```
+```python src/cli.py```
+
+or run a web server ```flask run``` (inside src directory) and open the browser at ```http://localhost:5000``` 
