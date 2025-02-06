@@ -1,20 +1,15 @@
-from silpo_api import Product
+from flask import Flask, render_template, request
+
+from .silpo_api import Product
+
+app = Flask(__name__)
 
 
-def search_prodects():
-    print("Enter product name: ", end="")
-    search_query = input()
-    products = Product.search(search_query)
-    print(f"Found {len(products)} products")
-    for product in products:
-        print(product)
-
-
-if __name__ == "__main__":
-    while True:
-        search_prodects()
-
-        print("Do you want to search again? (y/n): ", end="")
-        answer = input()
-        if answer != "y":
-            break
+@app.route("/")
+def index():
+    search_query = request.args.get("q")
+    if search_query:
+        print("Searching " + search_query)
+        products = Product.search(search_query)
+        return render_template("index.html", products=products, count=len(products), search_query=search_query)
+    return render_template("index.html")
